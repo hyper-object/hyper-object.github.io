@@ -184,9 +184,9 @@ nav ul li a:hover {
 /* --- About Section --- */
 .about-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: center;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+/*     align-items: center; */
 }
 
 .about-text p {
@@ -660,4 +660,5 @@ mjx-container {
                 0 6px 0 #16a085,
                 0 8px 15px rgba(0, 0, 0, 0.3);
             transition-duration: 0.1s;
+
         }

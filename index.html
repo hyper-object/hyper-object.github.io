@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyper-Object Challenge</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <!-- ─── Spectral-cube loading overlay ─── -->
+    <div id="loading-overlay">
+      <div id="spectral-loader" class="spectral-loader"></div>
+      <p class="loading-text">Building spectral cube …</p>
+    </div>
+
+
+    <header>
+        <nav>
+            <a href="#home" class="logo">
+              <img src="./logo.png" alt="Hyper-Object Challenge Logo">
+            </a>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#tracks">Tracks</a></li>
+                <li><a href="#dates">Dates</a></li>
+                <li><a href="#organizers">Organizers</a></li>
+            </ul>
+            <a href="#register" class="btn btn-primary navRegisterBtn">Register Now</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Section 1: Hero -->
+        <section id="home" class="hero">
+            <div id="threejs-container"></div>
+            <div class="hero-content">
+                <h1 class="animate-on-load">Hyper-Object Challenge</h1>
+                <p class="animate-on-load">Reconstructing Hyperspectral Cubes of Everyday Objects from Low-Cost Inputs</p>
+                <!-- <a href="#about" class="btn btn-secondary animate-on-load">Learn More</a> -->
+
+                <a href="#about" class="hyper-button">Learn More</a>
+            </div>
+        </section>
+
+        <!-- Section 2: Description -->
+        <section id="about" class="container content-section">
+            <div class="section-header animate-on-scroll">
+                <h2>About the Challenge</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="about-content animate-on-scroll">
+                <div class="about-text">
+                    <p>Hyperspectral imaging (HSI) captures fine-grained spectral information, enabling precise material analysis. However, commercial HSI cameras are expensive and bulky. In contrast, RGB cameras are affordable and ubiquitous.</p>
+                    <p>The <strong>Hyper-Object Challenge</strong> aims to revolutionize access to spectral imaging by developing learning-based models that can reconstruct high-fidelity hyperspectral cubes (400-1000 nm) from low-cost inputs like mosaic sensor data or standard low-resolution RGB images. This would unlock applications from counterfeit detection to agricultural monitoring using everyday devices.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://i.imgur.com/8Qp2e0J.png" alt="Example images from the Hyper-Object dataset">
+                    <p class="caption">Diverse everyday objects from the Hyper-Object dataset.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── Section 3 · Challenge Tracks ─── -->
+        <section id="tracks" class="container content-section">
+
+        <div class="section-header animate-on-scroll">
+            <h2>Challenge Tracks</h2>
+            <div class="divider"></div>
+            <p class="section-subtitle">
+            The competition comprises two distinct tracks, each defined by a different low-cost input format&nbsp;<em>i<sub>k</sub></em>.
+            </p>
+        </div>
+
+        <div class="tracks-container">
+
+            <!-- ─────────── Track 1 ─────────── -->
+            <div class="track-card animate-on-scroll">
+            <h3>Track 1: Spectral Reconstruction from Mosaic Images</h3>
+
+            <!-- — Input sentence from the PDF — -->
+            <p>
+                Each input <em>i<sub>k</sub></em> is a mosaic image that captures only one spectral band per pixel.
+            </p>
+
+            <!-- input dimensionality -->
+            <div class="math-formula">
+                \( i_k \in \mathbb{R}^{H \times W \times 1} \)
+            </div>
+
+            <p>
+                Every pixel is filtered according to a predefined tiling pattern that mimics a snapshot spectral sensor.
+                The task is to reconstruct the full spectral cube
+            </p>
+
+            <!-- output dimensionality -->
+            <div class="math-formula">
+                \( h_k \in \mathbb{R}^{H \times W \times C} \)
+            </div>
+
+            <!-- ── Extra details (PDF-derived) ── -->
+            <div class="track-details">
+                <h4>Objective</h4>
+                <p>
+                Recover <em>all C = 61</em> spectral bands (400 – 1000 nm, 10 nm spacing) from the spectrally-subsampled observation.
+                </p>
+
+
+                <h4>Evaluation</h4>
+                <p>
+                Ranking uses the composite score that aggregates
+                RMSE, SAM, PSNR, SSIM, and EGRAS.
+                </p>
+            </div>
+            </div><!-- /Track 1 -->
+
+
+            <!-- ─────────── Track 2 ─────────── -->
+            <div class="track-card animate-on-scroll">
+            <h3>Track 2: Joint Spatial and Spectral Super-Resolution</h3>
+
+            <!-- — Input sentence from the PDF — -->
+            <p>
+                Each input <em>i<sub>k</sub></em> is a low-resolution RGB image captured by a commodity camera.
+            </p>
+
+            <!-- input dimensionality -->
+            <div class="math-formula">
+                \( i_k \in \mathbb{R}^{h \times w \times 3}, \qquad h \ll H,\; w \ll W \)
+            </div>
+
+            <p>
+                The goal is to jointly recover spatial <em>and</em> spectral resolution by reconstructing
+            </p>
+
+            <!-- output dimensionality -->
+            <div class="math-formula">
+                \( h_k \in \mathbb{R}^{H \times W \times C} \)
+            </div>
+
+            <p>
+                where <em>C ≫ 3</em> and <em>H ≫ h, W ≫ w</em>.
+            </p>
+
+            <!-- ── Extra details (PDF-derived) ── -->
+            <div class="track-details">
+                <h4>Objective</h4>
+                <p>
+                Produce a high-fidelity hyperspectral cube that restores full spatial and spectral resolution.
+                </p>
+
+                
+
+                <h4>Evaluation</h4>
+                <p>
+                Ranking uses the composite score that aggregates
+                RMSE, SAM, PSNR, SSIM, and EGRAS.
+                </p>
+            </div>
+            </div><!-- /Track 2 -->
+
+        </div><!-- /.tracks-container -->
+        </section>
+
+        <!-- Section 4: Important Dates -->
+        <section id="dates" class="container content-section">
+            <div class="section-header animate-on-scroll">
+                <h2>Important Dates (Tentative)</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="timeline animate-on-scroll">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">15 August 2025</div>
+                    <div class="timeline-content">
+                        <h4>Dataset & Baseline Release</h4>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">30 November 2025</div>
+                    <div class="timeline-content">
+                        <h4>Submission Deadline</h4>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">07 December 2025</div>
+                    <div class="timeline-content">
+                        <h4>2-page Papers Due (by invitation)</h4>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">11 January 2026</div>
+                    <div class="timeline-content">
+                        <h4>Paper Acceptance Notification</h4>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">18 January 2026</div>
+                    <div class="timeline-content">
+                        <h4>Camera-ready Papers Due</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Registration -->
+        <section id="register" class="container content-section">
+            <div class="section-header animate-on-scroll">
+                <h2>How to Participate</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="participation-steps animate-on-scroll">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Access Resources</h4>
+                    <p>Get the training data, baseline models, and evaluation scripts on our Kaggle page.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Develop Your Model</h4>
+                    <p>Train your learning-based model to reconstruct high-fidelity hyperspectral cubes.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Submit & Compete</h4>
+                    <p>Submit your predictions on the held-out test set and climb the leaderboard.</p>
+                </div>
+            </div>
+            <div class="register-cta animate-on-scroll">
+                <p>The competition will be hosted on Kaggle. Click below to go to the competition page, register your team, and get started!</p>
+                <a href="https://www.kaggle.com/competitions/" target="_blank" class="btn btn-primary btn-large">Register on Kaggle</a>
+            </div>
+        </section>
+
+        <!-- Section 6: Organizers -->
+        <section id="organizers" class="container content-section">
+            <div class="section-header animate-on-scroll">
+                <h2>Organizers</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="organizers-grid animate-on-scroll">
+                <div class="organizer-card">
+                    <h4>Pai Chet Ng</h4>
+                    <p>Singapore Institute of Technology</p>
+                </div>
+                <div class="organizer-card">
+                    <h4>Konstantinos N. Plataniotis</h4>
+                    <p>University of Toronto</p>
+                </div>
+                <div class="organizer-card">
+                    <h4>Juwei Lu</h4>
+                    <p>University of Toronto</p>
+                </div>
+                <div class="organizer-card">
+                    <h4>Gabriel Lee Jun Rong</h4>
+                    <p>Singapore Institute of Technology</p>
+                </div>
+                <div class="organizer-card">
+                    <h4>Malcolm Low</h4>
+                    <p>Singapore Institute of Technology</p>
+                </div>
+                
+                <div class="organizer-card">
+                    <h4>Nikolaos Boulgouris</h4>
+                    <p>Brunel University</p>
+                </div>
+                <div class="organizer-card">
+                    <h4>Thirimachos Bourlai</h4>
+                    <p>University of Georgia</p>
+                </div>
+                <div class="organizer-card">
+                    <h4>Seyed Mohammad Sheikholeslami</h4>
+                    <p>University of Toronto</p>
+                </div>
+                
+                
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="sponsors">
+            <h3>Sponsors</h3>
+            <p>Sponsorship opportunities are available. Contact us for more information.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Hyper-Object Challenge. All Rights Reserved.</p>
+            <p>Contact: <a href="mailto:tbc@hyper-object.org">tbc@hyper-object.org</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

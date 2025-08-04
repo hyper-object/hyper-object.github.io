@@ -1,0 +1,663 @@
+:root {
+    --primary-color: #00aaff;
+    --secondary-color: #0077b6;
+    --bg-color: #0a192f;
+    --text-color: #ccd6f6;
+    --light-text-color: #8892b0;
+    --card-bg-color: #112240;
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- Header & Nav --- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
+    transition: top 0.3s;
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .logo img{
+  width: 170px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+nav ul li a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Buttons --- */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: 1px solid var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.btn-large {
+    font-size: 1.2rem;
+    padding: 1rem 2.5rem;
+}
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#threejs-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    max-width: 700px;
+    margin: 0 auto 2rem;
+}
+
+/* --- General Content Sections --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* --- About Section --- */
+.about-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    color: var(--light-text-color);
+}
+.about-text strong {
+    color: var(--primary-color);
+}
+.about-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+}
+.about-image .caption {
+    font-size: 0.9rem;
+    text-align: center;
+    color: var(--light-text-color);
+    margin-top: 1rem;
+}
+
+/* --- Tracks Section --- */
+.tracks-container {
+    display: grid;
+    /* grid-template-columns: 1fr 1fr; */
+    gap: 2rem;
+}
+.track-card {
+    background-color: var(--card-bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.track-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px -15px rgba(2,12,27,0.7);
+}
+.track-card h3 {
+    color: #fff;
+    margin-bottom: 1rem;
+}
+.track-card p {
+    color: var(--light-text-color);
+}
+
+/* --- Timeline Section --- */
+.timeline {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: var(--card-bg-color);
+    top: 0;
+    bottom: 0;
+    left: 20px;
+}
+.timeline-item {
+    padding: 1rem 0 2rem 50px;
+    position: relative;
+}
+.timeline-dot {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 1.2rem;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    border: 2px solid var(--bg-color);
+    z-index: 1;
+}
+.timeline-date {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+.timeline-content h4 {
+    font-weight: 600;
+    color: #fff;
+    margin-top: 0.25rem;
+}
+
+/* --- Participation Section --- */
+.participation-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+.step {
+    text-align: center;
+    padding: 1.5rem;
+}
+.step-number {
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 1rem;
+}
+.step h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+.step p {
+    color: var(--light-text-color);
+}
+.register-cta {
+    text-align: center;
+    background: var(--card-bg-color);
+    padding: 3rem;
+    border-radius: 8px;
+}
+.register-cta p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* --- Organizers Section --- */
+.organizers-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:1.5rem;
+    margin-top:2rem;
+}
+
+.organizer-card{
+    background:var(--card-bg-color);
+    border-left:4px solid var(--primary-color);
+    border-radius:8px;
+    padding:1.5rem;
+    box-shadow:0 10px 30px -15px rgba(2,12,27,0.7);
+    transition:transform .3s ease,box-shadow .3s ease;
+}
+
+.organizer-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px -15px rgba(2,12,27,0.7);
+}
+
+.organizer-card h4{
+    font-size:1.1rem;
+    font-weight:600;
+    color:#fff;
+    margin-bottom:0.3rem;
+}
+
+.organizer-card p{
+    font-size:0.95rem;
+    color:var(--light-text-color);
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #020c1b;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+.sponsors {
+    margin-bottom: 2rem;
+}
+.sponsors h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+.sponsors p {
+    color: var(--light-text-color);
+}
+.footer-bottom {
+    border-top: 1px solid var(--card-bg-color);
+    padding-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--light-text-color);
+}
+.footer-bottom a {
+    color: var(--light-text-color);
+    text-decoration: none;
+}
+.footer-bottom a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Animations --- */
+.animate-on-load {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease-out forwards;
+}
+.animate-on-load:nth-child(2) { animation-delay: 0.2s; }
+.animate-on-load:nth-child(3) { animation-delay: 0.4s; }
+
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+    .about-content, .tracks-container {
+        grid-template-columns: 1fr;
+    }
+    .about-image {
+        grid-row: 1;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul { display: none; }
+    .hero h1 { font-size: 3rem; }
+    .hero p { font-size: 1.1rem; }
+    .participation-steps { grid-template-columns: 1fr; }
+    .organizers-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* --- Expanded Track Card Styles --- */
+.section-subtitle {
+    max-width: 800px;
+    margin: 1rem auto 0;
+    font-size: 1.1rem;
+    color: var(--light-text-color);
+}
+
+.track-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.track-details {
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.track-details h4 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--card-bg-color);
+    padding-bottom: 0.25rem;
+}
+
+.track-details p {
+    color: var(--light-text-color);
+    margin-bottom: 1rem;
+}
+
+/* Style for inline math code */
+.track-details p code, .track-details li code {
+    background-color: rgba(0, 170, 255, 0.1);
+    color: var(--primary-color);
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.track-details ol {
+    list-style-position: inside;
+    padding-left: 1rem;
+    color: var(--light-text-color);
+}
+
+.track-details ol li {
+    margin-bottom: 1rem;
+}
+
+.track-details ol li::marker {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.math-formula {
+    background-color: #020c1b;
+    border: 1px solid var(--card-bg-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    text-align: center;
+}
+
+/* Ensure MathJax text color is correct */
+mjx-container {
+    color: var(--text-color) !important;
+}
+
+
+/* ---------- Mobile fix for “Challenge Tracks” section ---------- */
+@media (max-width: 768px) {
+  .navRegisterBtn{
+    display: none;
+  }
+
+  /* 1. Stack the cards and let the column shrink */
+  .tracks-container{
+      display:grid;
+      /* minmax(0,1fr) lets the track shrink below its min-content width   */
+      grid-template-columns:minmax(0,1fr);
+      gap:1.5rem;
+  }
+
+  /* 2. Make sure long equations or inline code never push the card wider */
+  .track-card{
+      width:100%;
+      box-sizing:border-box;
+      overflow-wrap:anywhere;   /* break extremely long tokens         */
+      word-break:break-word;
+      padding:1.5rem 1rem;      /* a little narrower side-padding      */
+  }
+
+  /* 3. If a MathJax block is still wider, scroll ​inside​ the box, not the page */
+  .math-formula{
+      overflow-x:auto;
+      font-size:0.85rem;        /* slightly smaller text on mobiles    */
+  }
+
+  /* 4. Give the whole page a bit more breathing room */
+  .container{
+      padding:4rem 1rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ─────────────────────────────────────────
+   Spectral “build-the-cube” loader
+────────────────────────────────────────── */
+#loading-overlay{
+    position:fixed; inset:0;
+    background:var(--bg-color);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    z-index:5000;
+    transition:opacity .6s ease, visibility .6s;
+}
+#loading-overlay.hidden{ opacity:0; visibility:hidden; }
+
+/* stacked slices, tilted a little for 3-D look */
+.spectral-loader{
+    display:flex; flex-direction:column; gap:2px;
+    transform:rotateX(60deg) rotateZ(45deg);
+    perspective:800px;
+}
+.slice{
+    width:80px; height:4px;
+    background:#fff;
+    transform:scaleX(0);
+    transform-origin:left center;
+    animation:sliceFill 1.2s forwards;
+}
+@keyframes sliceFill{ to{ transform:scaleX(1); } }
+
+.loading-text{
+    margin-top:1rem;
+    font-size:.95rem;
+    color:var(--light-text-color);
+    letter-spacing:.05em; font-weight:600;
+}
+
+
+
+
+
+
+
+
+
+
+.hyper-button {
+            /* --- Basic Button Appearance --- */
+            position: relative;
+            display: inline-block;
+            padding: 1.25rem 3rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            outline: none;
+            
+            /* --- Font and Text --- */
+            font-family: "Segoe UI", system-ui, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+            
+            /* --- The Hyperspectral Gradient --- */
+            /* This is the top face of our button. The animated gradient creates a "scanning" effect. */
+            background: #272727;
+            background-size: 250% 100%; /* Gradient is wider than the button to allow for animation */
+            
+            /* --- Core Animation Setup --- */
+            /* We transition the transform (for the lift) and the box-shadow (for the layers) */
+            transition: 
+                transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-position 0.6s ease;
+            
+            text-decoration: none;
+        }
+
+        /* 
+         * =================================================
+         *      HOVER STATE: The "Hypercube" Layer Reveal
+         * =================================================
+        */
+        .hyper-button:hover {
+            /* --- 1. Lift the button up --- */
+            transform: translateY(-12px);
+
+            /* --- 2. Animate the "spectral scan" on the top face --- */
+            background-position: 100% 0;
+
+            /* --- 3. Reveal the 3D spectral layers using box-shadow --- */
+            /* This is the key to the effect. We stack multiple solid-color shadows
+               with increasing vertical offsets to create the illusion of depth. */
+            box-shadow:
+                0  4px  0 #FF0000,  /* Red    */
+                0 8px  0 #00FF00,  /* Green  */
+                0 16px  0 #0000FF,  /* Blue   */
+                0 32px 30px rgba(0,0,0,0.3);
+        }
+        
+        .hyper-button:active {
+            /* A subtle press-down effect */
+            transform: translateY(-2px);
+            box-shadow: 
+                0 2px 0 #7b2cbf,
+                0 4px 0 #2980b9,
+                0 6px 0 #16a085,
+                0 8px 15px rgba(0, 0, 0, 0.3);
+            transition-duration: 0.1s;
+        }

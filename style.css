@@ -327,17 +327,17 @@ nav ul li a:hover {
 }
 
 .organizer-card{
-    background:var(--card-bg-color);
-    border-left:4px solid var(--primary-color);
+    /* background:var(--card-bg-color); */
+    /* border-left:4px solid var(--primary-color); */
     border-radius:8px;
     padding:1.5rem;
-    box-shadow:0 10px 30px -15px rgba(2,12,27,0.7);
+    /* box-shadow:0 10px 30px -15px rgba(2,12,27,0.7); */
     transition:transform .3s ease,box-shadow .3s ease;
 }
 
 .organizer-card:hover{
     transform:translateY(-8px);
-    box-shadow:0 20px 40px -15px rgba(2,12,27,0.7);
+    /* box-shadow:0 20px 40px -15px rgba(2,12,27,0.7); */
 }
 
 .organizer-card h4{
@@ -351,6 +351,8 @@ nav ul li a:hover {
     font-size:0.95rem;
     color:var(--light-text-color);
 }
+
+
 
 /* --- Footer --- */
 footer {
@@ -599,6 +601,7 @@ mjx-container {
 
 .hyper-button {
             /* --- Basic Button Appearance --- */
+            margin-top: 1em;
             position: relative;
             display: inline-block;
             padding: 1.25rem 3rem;
@@ -662,3 +665,224 @@ mjx-container {
             transition-duration: 0.1s;
 
         }
+
+
+/* ──────────────────────────────────
+   Additions for circular portraits
+────────────────────────────────── */
+.organizer-card{
+    text-align:center;              /* keep everything nicely centred  */
+}
+
+.organizer-photo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:0 auto 1rem;
+    border:3px solid var(--primary-color);
+    box-shadow:0 6px 15px -5px rgba(2,12,27,0.6);
+}
+
+
+/* ──────────────────────────────────
+   Additions for Leaderboard section
+────────────────────────────────── */
+
+/* Tabs -------------------------------------------------- */
+.leaderboard-tabs{
+    width:100%;
+    max-width:900px;
+    margin:0 auto 2rem;
+    text-align:center;
+    position:relative;
+}
+.leaderboard-tabs input[type="radio"]{
+    display:none;
+}
+.leaderboard-tabs label{
+    display:inline-block;
+    margin: 0 0 1em .25rem;
+    padding:.5rem 1.25rem;
+    font-weight:600;
+    cursor:pointer;
+    border-radius:6px;
+    background:var(--card-bg-color);
+    color:var(--text-color);
+    transition:background .3s ease,color .3s ease;
+}
+.leaderboard-tabs input:checked + label{
+    background:var(--primary-color);
+    color:#fff;
+}
+
+/* Panels ------------------------------------------------ */
+.leaderboard-panels{
+    position:relative;
+}
+.leaderboard-panel{
+    display:none;
+}
+#tab-track1:checked ~ .leaderboard-panels .leaderboard-panel:nth-child(1),
+#tab-track2:checked ~ .leaderboard-panels .leaderboard-panel:nth-child(2){
+    display:block;
+    animation:fadeIn .4s ease-out;
+}
+
+/* Table ------------------------------------------------- */
+.leaderboard-table-wrapper{
+    overflow-x:auto;
+}
+.leaderboard-table{
+    width:100%;
+    min-width:620px;
+    border-collapse:collapse;
+}
+.leaderboard-table thead tr{
+    background:var(--card-bg-color);
+}
+.leaderboard-table th,
+.leaderboard-table td{
+    padding:.75rem 1rem;
+    text-align:left;
+}
+.leaderboard-table th{
+    color:var(--primary-color);
+    font-weight:700;
+    border-bottom:2px solid var(--card-bg-color);
+}
+.leaderboard-table tbody tr:nth-child(even){
+    background:rgba(255,255,255,.03);
+}
+.leaderboard-table tbody tr:hover{
+    background:rgba(0,170,255,.08);
+}
+.leaderboard-table td{
+    color:var(--light-text-color);
+}
+
+/* Medal colours ---------------------------------------- */
+.gold-row   { background:rgba(255,215,0,0.10) !important; }
+.silver-row { background:rgba(192,192,192,0.10) !important; }
+.bronze-row { background:rgba(205,127,50,0.10) !important; }
+
+/* Small fade-in used for panel switch ------------------ */
+@keyframes fadeIn{
+    from{ opacity:0; transform:translateY(20px); }
+    to  { opacity:1; transform:translateY(0); }
+}
+
+/* ──────────────────────────────────
+   Share-button & modal additions
+────────────────────────────────── */
+
+/* 1. Button tweaks inside the nav */
+.navShareBtn{
+    margin-left:1rem;
+}
+
+/* Hide on small screens just like the Register button */
+@media (max-width:768px){
+    .navShareBtn{ display:none; }
+}
+
+/* 2. Modal overlay */
+.share-modal{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,.6);
+    display:flex; align-items:center; justify-content:center;
+    visibility:hidden; opacity:0;
+    transition:opacity .3s ease, visibility .3s ease;
+    z-index:6000;
+}
+.share-modal.open{
+    visibility:visible; opacity:1;
+}
+
+/* 3. Modal box */
+.share-modal-content{
+    background:var(--card-bg-color);
+    border-radius:8px;
+    padding:2rem;
+    width:90%; max-width:480px;
+    text-align:center;
+    box-shadow:0 20px 40px -15px rgba(2,12,27,0.8);
+    position:relative;
+}
+
+.share-modal-close{
+    position:absolute; top:12px; right:14px;
+    font-size:1.75rem; line-height:1;
+    color:var(--light-text-color);
+    cursor:pointer;
+    transition:color .2s ease;
+}
+.share-modal-close:hover{ color:var(--primary-color); }
+
+.modal-subtitle{
+    color:var(--light-text-color);
+    margin:.25rem 0 1.25rem;
+}
+
+/* 4. Input + copy button */
+.share-input-group{
+    display:flex;
+}
+.share-input-group input{
+    flex:1;
+    border:1px solid var(--primary-color);
+    border-radius:5px 0 0 5px;
+    padding:.75rem 1rem;
+    background:rgba(255,255,255,0.05);
+    color:var(--text-color);
+    font-family:var(--font-family);
+    font-size:1rem;
+}
+.share-input-group input:focus{
+    outline:none;
+    box-shadow:0 0 0 2px var(--primary-color);
+}
+.share-input-group button{
+    border-radius:0 5px 5px 0;
+}
+
+
+
+/* ──────────────────────────────────
+   FAQ section
+────────────────────────────────── */
+.faq-container{
+    max-width:800px;
+    margin:0 auto;
+}
+
+.faq-item{
+    border-bottom:1px solid var(--card-bg-color);
+    margin-bottom:1.5rem;
+    padding-bottom:1.5rem;
+}
+
+.faq-question{
+    font-size:1.1rem;
+    font-weight:600;
+    cursor:pointer;
+    color:var(--primary-color);
+    transition:color .25s ease, padding-left .25s ease;
+}
+.faq-question:hover{
+    color:#fff;
+    padding-left:.25rem;
+}
+
+.faq-answer{
+    display:none;
+    margin-top:.75rem;
+    color:var(--light-text-color);
+    line-height:1.7;
+}
+
+.faq-item.open .faq-answer{
+    display:block;
+    animation:fadeIn .3s ease-out;
+}

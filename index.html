@@ -30,9 +30,30 @@
                 <li><a href="#tracks">Tracks</a></li>
                 <li><a href="#dates">Dates</a></li>
                 <li><a href="#organizers">Organizers</a></li>
+                <li><a href="#leaderboard">Leaderboard</a></li>
             </ul>
+
+            <button id="shareBtn" class="btn btn-secondary navShareBtn" type="button">
+                Share
+            </button>
+
             <a href="#register" class="btn btn-primary navRegisterBtn">Register Now</a>
         </nav>
+
+        <div id="shareModal" class="share-modal">
+            <div class="share-modal-content">
+                <span id="shareModalClose" class="share-modal-close">&times;</span>
+
+                <h3>Share this site</h3>
+                <p class="modal-subtitle">Copy the link below and share it with your friends</p>
+
+                <div class="share-input-group">
+                    <input id="shareLink" type="text" readonly>
+                    <button id="copyLinkBtn" class="btn btn-primary">Copy</button>
+                </div>
+            </div>
+        </div>
+
     </header>
 
     <main>
@@ -45,6 +66,7 @@
                 <!-- <a href="#about" class="btn btn-secondary animate-on-load">Learn More</a> -->
 
                 <a href="#about" class="hyper-button">Learn More</a>
+                <a href="https://github.com/hyperspectral-skin/Hyper-Skin-2023" class="hyper-button">Github</a>
             </div>
         </section>
 
@@ -250,42 +272,255 @@
 
             <div class="organizers-grid animate-on-scroll">
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Pai Chet Ng">
                     <h4>Pai Chet Ng</h4>
                     <p>Singapore Institute of Technology</p>
                 </div>
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Konstantinos N. Plataniotis">
                     <h4>Konstantinos N. Plataniotis</h4>
                     <p>University of Toronto</p>
                 </div>
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Juwei Lu">
                     <h4>Juwei Lu</h4>
                     <p>University of Toronto</p>
                 </div>
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Gabriel Lee Jun Rong">
                     <h4>Gabriel Lee Jun Rong</h4>
                     <p>Singapore Institute of Technology</p>
                 </div>
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Malcolm Low">
                     <h4>Malcolm Low</h4>
                     <p>Singapore Institute of Technology</p>
                 </div>
-                
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Nikolaos Boulgouris">
                     <h4>Nikolaos Boulgouris</h4>
                     <p>Brunel University</p>
                 </div>
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Thirimachos Bourlai">
                     <h4>Thirimachos Bourlai</h4>
                     <p>University of Georgia</p>
                 </div>
+
                 <div class="organizer-card">
+                    <img class="organizer-photo" src="https://placehold.co/150x150" alt="Portrait of Seyed Mohammad Sheikholeslami">
                     <h4>Seyed Mohammad Sheikholeslami</h4>
                     <p>University of Toronto</p>
                 </div>
-                
-                
             </div>
         </section>
+
+        <!-- Section 7: Leaderboard -->
+        <section id="leaderboard" class="container content-section">
+            <div class="section-header animate-on-scroll">
+                <h2>Leaderboard</h2>
+                <div class="divider"></div>
+                <p class="section-subtitle">
+                    Baseline results on the public validation set.<br>
+                    Final ranking will use the composite score that combines RMSE, SAM, PSNR, SSIM, and EGRAS on the hidden test set.
+                </p>
+            </div>
+
+            <!-- Track switcher (pure-CSS; no JS needed) -->
+            <div class="leaderboard-tabs">
+                <input type="radio" id="tab-track1" name="lb-tab" checked>
+                <label for="tab-track1">Track&nbsp;1</label>
+
+                <input type="radio" id="tab-track2" name="lb-tab">
+                <label for="tab-track2">Track&nbsp;2</label>
+
+                <div class="leaderboard-panels">
+                    <!-- ─── Track-1 table (placeholder data) ─── -->
+                    <div class="leaderboard-panel">
+                        <div class="leaderboard-table-wrapper">
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Team</th>
+                                        <th>Composite&nbsp;Score</th>
+                                        <th>Submissions</th>
+                                        <th>Last&nbsp;Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gold-row">
+                                        <td>1 🥇</td>
+                                        <td>Baseline&nbsp;Model&nbsp;(MST++)</td>
+                                        <td>0.726</td>
+                                        <td>Baseline</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr class="silver-row">
+                                        <td>2 🥈</td>
+                                        <td>Baseline&nbsp;Model&nbsp;(HRNet)</td>
+                                        <td>0.560</td>
+                                        <td>Baseline</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr class="bronze-row">
+                                        <td>3 🥉</td>
+                                        <td>Baseline&nbsp;Model&nbsp;(HSCNN+)</td>
+                                        <td>0.350</td>
+                                        <td>Baseline</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Your&nbsp;Team</td>
+                                        <td>TBD</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ─── Track-2 table (placeholder data) ─── -->
+                    <div class="leaderboard-panel">
+                        <div class="leaderboard-table-wrapper">
+                            <table class="leaderboard-table">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Team</th>
+                                        <th>Composite&nbsp;Score</th>
+                                        <th>Submissions</th>
+                                        <th>Last&nbsp;Update</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="gold-row">
+                                        <td>1 🥇</td>
+                                        <td>Baseline&nbsp;Model&nbsp;(MST++)</td>
+                                        <td>0.705</td>
+                                        <td>Baseline</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr class="silver-row">
+                                        <td>2 🥈</td>
+                                        <td>Baseline&nbsp;Model&nbsp;(HRNet)</td>
+                                        <td>0.533</td>
+                                        <td>Baseline</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr class="bronze-row">
+                                        <td>3 🥉</td>
+                                        <td>Baseline&nbsp;Model&nbsp;(HSCNN+)</td>
+                                        <td>0.310</td>
+                                        <td>Baseline</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Your&nbsp;Team</td>
+                                        <td>TBD</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!-- /.leaderboard-panels -->
+            </div><!-- /.leaderboard-tabs -->
+        </section>
+
+        <!-- Section 8: FAQ -->
+        <section id="faq" class="container content-section">
+            <div class="section-header animate-on-scroll">
+                <h2>Frequently Asked Questions</h2>
+                <div class="divider"></div>
+            </div>
+
+            <div class="faq-container">
+                <!-- Q1 -->
+                <div class="faq-item">
+                    <h3 class="faq-question">What is the goal of the Hyper-Object Challenge?</h3>
+                    <div class="faq-answer">
+                        <p>
+                            The competition pushes the frontier of <strong>low-cost hyperspectral imaging</strong>.  
+                            Participants develop learning-based models that reconstruct full hyperspectral cubes
+                            (400 – 1000 nm, 61 bands) of everyday objects from inexpensive inputs such as
+                            spectral mosaics or low-resolution RGB images.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="faq-item">
+                    <h3 class="faq-question">What are the two competition tracks?</h3>
+                    <div class="faq-answer">
+                        <p>
+                            • <strong>Track&nbsp;1 – Spectral Reconstruction from Mosaic Images:</strong>
+                            Recover all 61 bands from a full-resolution, single-channel spectral mosaic.<br>
+                            • <strong>Track&nbsp;2 – Joint Spatial & Spectral Super-Resolution:</strong>
+                            Recover spatial and spectral detail from a low-resolution RGB image.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="faq-item">
+                    <h3 class="faq-question">How do I participate?</h3>
+                    <div class="faq-answer">
+                        <p>
+                            Register on the Kaggle competition page, download the training data, and submit
+                            your model’s predictions on the hidden test set to appear on the leaderboard.
+                            Key dates are listed in the “Important Dates” section above.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I use external data or pre-trained models?</h3>
+                    <div class="faq-answer">
+                        <p>
+                            Yes. External datasets and pre-trained networks are allowed, but you must disclose
+                            them in your final write-up. The organizers and their students will <em>not</em> compete.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="faq-item">
+                    <h3 class="faq-question">Which metrics determine my score?</h3>
+                    <div class="faq-answer">
+                        <p>
+                            We compute five metrics on every test image—RMSE, SAM, PSNR, SSIM, and EGRAS.
+                            These are min-max-normalized and combined into a single composite score used for
+                            leaderboard ranking.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="faq-item">
+                    <h3 class="faq-question">Is there a submission limit?</h3>
+                    <div class="faq-answer">
+                        <p>
+                            Each team may upload up to <strong>3</strong> final submissions. The highest composite
+                            score among them is kept for the final ranking.
+                        </p>
+                    </div>
+                </div>
+            </div><!-- /.faq-container -->
+        </section>
+
+
     </main>
 
     <footer>

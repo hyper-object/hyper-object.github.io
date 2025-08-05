@@ -166,3 +166,55 @@ document.addEventListener('DOMContentLoaded', () => {
                NUM_SLICES * 40 + 300);   // ms
   });
 })();
+
+
+
+/* ─── Share-link modal logic ───────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+
+    const shareBtn        = document.getElementById('shareBtn');
+    const shareModal      = document.getElementById('shareModal');
+    const shareModalClose = document.getElementById('shareModalClose');
+    const shareLinkInput  = document.getElementById('shareLink');
+    const copyLinkBtn     = document.getElementById('copyLinkBtn');
+
+    if (shareBtn && shareModal) {
+
+        /* open modal */
+        shareBtn.addEventListener('click', () => {
+            shareLinkInput.value = window.location.href;
+            shareModal.classList.add('open');
+            shareLinkInput.select();
+        });
+
+        /* close modal (× button or backdrop click) */
+        shareModalClose.addEventListener('click', () => {
+            shareModal.classList.remove('open');
+        });
+        shareModal.addEventListener('click', (e) => {
+            if (e.target === shareModal) shareModal.classList.remove('open');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') shareModal.classList.remove('open');
+        });
+
+        /* copy link */
+        copyLinkBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(shareLinkInput.value).then(() => {
+                copyLinkBtn.textContent = 'Copied!';
+                setTimeout(() => copyLinkBtn.textContent = 'Copy', 2000);
+            });
+        });
+    }
+
+});
+
+
+
+
+document.querySelectorAll('.faq-item .faq-question').forEach(q => {
+    q.addEventListener('click', () => {
+        const item = q.parentElement;
+        item.classList.toggle('open');
+    });
+});

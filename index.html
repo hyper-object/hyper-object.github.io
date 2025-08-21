@@ -66,7 +66,7 @@
                 <!-- <a href="#about" class="btn btn-secondary animate-on-load">Learn More</a> -->
 
                 <a href="#about" class="hyper-button">Learn More</a>
-                <a href="https://github.com/hyperspectral-skin/Hyper-Skin-2023" class="hyper-button">Github</a>
+                <a href="https://github.com/hyper-object/2026-ICASSP-SPGC" class="hyper-button">Github</a>
             </div>
         </section>
 
@@ -135,9 +135,14 @@
 
                 <h4>Evaluation</h4>
                 <p>
-                Ranking uses the composite score that aggregates
-                RMSE, SAM, PSNR, SSIM, and EGRAS.
+                Submissions are ranked by Spectral-Spatial-Color (SSC) score, range in [0, 1].
                 </p>
+                <ul style="margin-left:2em;margin-bottom: 1em;">
+                    <li>Spectral: SAM, SID, ERGAS</li>
+                    <li>Spatial: PSNR, SSIM on a standardized sRGB render (D65, CIE 1931 2°)</li>
+                    <li>Color: ΔE00 on the same sRGB render</li>
+                </ul>
+                <a href="https://www.kaggle.com/competitions/2026-icassp-hyper-object-challenge-track-1" class="btn btn-primary navRegisterBtn">Register Track 1</a>
             </div>
             </div><!-- /Track 1 -->
 
@@ -180,9 +185,14 @@
 
                 <h4>Evaluation</h4>
                 <p>
-                Ranking uses the composite score that aggregates
-                RMSE, SAM, PSNR, SSIM, and EGRAS.
+                Submissions are ranked by Spectral-Spatial-Color (SSC) score, range in [0, 1].
                 </p>
+                <ul style="margin-left:2em;margin-bottom: 1em;">
+                    <li>Spectral: SAM, SID, ERGAS</li>
+                    <li>Spatial: PSNR, SSIM on a standardized sRGB render (D65, CIE 1931 2°)</li>
+                    <li>Color: ΔE00 on the same sRGB render</li>
+                </ul>
+                <a href="https://www.kaggle.com/competitions/2026-icassp-hyper-object-challenge-track-2" class="btn btn-primary navRegisterBtn">Register Track 2</a>
             </div>
             </div><!-- /Track 2 -->
 
@@ -216,7 +226,7 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-date">31 August 2025</div>
                     <div class="timeline-content">
-                        <h4>SPrivate Testing Set Release & Leaderboard Starts</h4>
+                        <h4>Private Testing Set Release & Leaderboard Starts</h4>
                     </div>
                 </div>
 
@@ -492,74 +502,176 @@
             <div class="faq-container">
                 <!-- Q1 -->
                 <div class="faq-item">
-                    <h3 class="faq-question">What is the goal of the Hyper-Object Challenge?</h3>
-                    <div class="faq-answer">
-                        <p>
-                            The competition pushes the frontier of <strong>low-cost hyperspectral imaging</strong>.  
-                            Participants develop learning-based models that reconstruct full hyperspectral cubes
-                            (400 – 1000 nm, 61 bands) of everyday objects from inexpensive inputs such as
-                            spectral mosaics or low-resolution RGB images.
-                        </p>
-                    </div>
+                <h3 class="faq-question">What is the goal of the Hyper-Object Challenge?</h3>
+                <div class="faq-answer">
+                    <p>
+                    The Hyper-Object Challenge pushes the frontier of low-cost hyperspectral imaging. Participants are invited to develop deep learning models that reconstruct <strong>high-fidelity hyperspectral image cubes</strong> (400–1000 nm, 61 bands) of real-world objects from <strong>cost-effective input formats</strong>, such as <strong>spectral mosaics</strong> or <strong>low-resolution RGB images</strong>. The goal is to democratize access to spectral imaging technology for real-world applications like agriculture, cultural heritage, forensics, and material analysis.
+                    </p>
+                </div>
                 </div>
 
                 <!-- Q2 -->
                 <div class="faq-item">
-                    <h3 class="faq-question">What are the two competition tracks?</h3>
-                    <div class="faq-answer">
-                        <p>
-                            • <strong>Track&nbsp;1 – Spectral Reconstruction from Mosaic Images:</strong>
-                            Recover all 61 bands from a full-resolution, single-channel spectral mosaic.<br>
-                            • <strong>Track&nbsp;2 – Joint Spatial & Spectral Super-Resolution:</strong>
-                            Recover spatial and spectral detail from a low-resolution RGB image.
-                        </p>
-                    </div>
+                <h3 class="faq-question">What are the competition tracks?</h3>
+                <div class="faq-answer">
+                    <p>We offer <strong>two tracks</strong>, each focusing on a different practical constraint:</p>
+                    <ul>
+                    <li>
+                        <strong>Track 1 – Spectral Reconstruction from Mosaic Images</strong><br>
+                        Input: A single-channel spectral mosaic image (1 band per pixel)<br>
+                        Output: A full-resolution hyperspectral cube with 61 bands
+                    </li>
+                    <li>
+                        <strong>Track 2 – Joint Spatial &amp; Spectral Super-Resolution</strong><br>
+                        Input: A low-resolution RGB image (captured by a commodity camera)<br>
+                        Output: A high-resolution hyperspectral cube (61 bands, upsampled)
+                    </li>
+                    </ul>
+                    <p>You may participate in one or both tracks.</p>
+                </div>
                 </div>
 
                 <!-- Q3 -->
                 <div class="faq-item">
-                    <h3 class="faq-question">How do I participate?</h3>
-                    <div class="faq-answer">
-                        <p>
-                            Register on the Kaggle competition page, download the training data, and submit
-                            your model’s predictions on the hidden test set to appear on the leaderboard.
-                            Key dates are listed in the “Important Dates” section above.
-                        </p>
-                    </div>
+                <h3 class="faq-question">What data is provided?</h3>
+                <div class="faq-answer">
+                    <ul>
+                    <li><strong>Training data</strong> – Available now</li>
+                    <li><strong>Public test data</strong> – Released on <strong>Aug 25</strong>, includes input and ground-truth for local validation</li>
+                    <li><strong>Private test data</strong> – Input-only; used for <strong>leaderboard ranking</strong></li>
+                    <li><strong>Hidden test data</strong> – Used internally to evaluate <strong>your submitted model/code</strong> for <strong>final ranking</strong></li>
+                    </ul>
+                    <p>Please refer to the <a href="#">Data Description</a> section for more details.</p>
+                </div>
                 </div>
 
                 <!-- Q4 -->
                 <div class="faq-item">
-                    <h3 class="faq-question">Can I use external data or pre-trained models?</h3>
-                    <div class="faq-answer">
-                        <p>
-                            Yes. External datasets and pre-trained networks are allowed, but you must disclose
-                            them in your final write-up. The organizers and their students will <em>not</em> compete.
-                        </p>
-                    </div>
+                <h3 class="faq-question">How is scoring done?</h3>
+                <div class="faq-answer">
+                    <p>We use the <strong>Spectral-Spatial-Color (SSC)</strong> composite score as the main evaluation metric. It combines the following metrics:</p>
+                    <ul>
+                    <li>SAM (Spectral Angle Mapper)</li>
+                    <li>SID (Spectral Information Divergence)</li>
+                    <li>ERGAS</li>
+                    <li>PSNR</li>
+                    <li>SSIM</li>
+                    <li>&Delta;E (color difference in rendered RGB space)</li>
+                    </ul>
+                    <p>Each metric is normalized and combined into a single <strong>SSC score in [0, 1]</strong>, where <strong>higher is better</strong>.</p>
+                </div>
                 </div>
 
                 <!-- Q5 -->
                 <div class="faq-item">
-                    <h3 class="faq-question">Which metrics determine my score?</h3>
-                    <div class="faq-answer">
-                        <p>
-                            We compute five metrics on every test image—RMSE, SAM, PSNR, SSIM, and EGRAS.
-                            These are min-max-normalized and combined into a single composite score used for
-                            leaderboard ranking.
-                        </p>
-                    </div>
+                <h3 class="faq-question">What should my model output?</h3>
+                <div class="faq-answer">
+                    <p>
+                    Each sample's output should be a <strong>61-band hyperspectral image cube</strong>, matching the spatial resolution of the input (Track 1) or a defined high-res target (Track 2). Outputs must be saved in <code>.npy</code> format as <code>*.npy</code> files named after the test sample ID.
+                    </p>
+                </div>
                 </div>
 
                 <!-- Q6 -->
                 <div class="faq-item">
-                    <h3 class="faq-question">Is there a submission limit?</h3>
-                    <div class="faq-answer">
-                        <p>
-                            Each team may upload up to <strong>3</strong> final submissions. The highest composite
-                            score among them is kept for the final ranking.
-                        </p>
-                    </div>
+                <h3 class="faq-question">Can I use external datasets or pre-trained models?</h3>
+                <div class="faq-answer">
+                    <p>
+                    Yes. External datasets, synthetic data, and pre-trained models are allowed, but must be <strong>clearly disclosed</strong> in your final write-up. Please <strong>do not use test set leakage</strong> or non-public data.
+                    </p>
+                    <p><em>Note: The organizers and affiliated students will not participate in the competition.</em></p>
+                </div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="faq-item">
+                <h3 class="faq-question">What is the submission format?</h3>
+                <div class="faq-answer">
+                    <ul>
+                    <li>You must submit a <code>.zip</code> file containing <strong>one <code>.npy</code> file per test sample</strong>, named exactly as per the sample ID (e.g., <code>sample123.npy</code>).</li>
+                    <li>The output of each <code>.npy</code> file must be a <strong>float32 H×W×61 array</strong> in the range <strong>[0, 1]</strong>.</li>
+                    </ul>
+                </div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="faq-item">
+                <h3 class="faq-question">What is the leaderboard setup?</h3>
+                <div class="faq-answer">
+                    <ul>
+                    <li>The leaderboard reflects scores on the <strong>private test set</strong>.</li>
+                    <li>Your final ranking will be based on <strong>internal evaluation on the hidden test set</strong> using your <strong>submitted code</strong>.</li>
+                    <li>This ensures fair and robust evaluation under realistic deployment conditions.</li>
+                    </ul>
+                </div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="faq-item">
+                <h3 class="faq-question">How do I submit my model for final evaluation?</h3>
+                <div class="faq-answer">
+                    <p>In addition to <code>.zip</code> file predictions, you must submit:</p>
+                    <ul>
+                    <li>Your <strong>trained model weights</strong></li>
+                    <li>A <strong>standalone inference script</strong> (e.g., <code>inference.py</code>) that loads your model and generates output <code>.npy</code> files for any given input directory</li>
+                    <li>A <code>requirements.txt</code> listing all dependencies</li>
+                    </ul>
+                    <p>We will run your code in a standardized environment and evaluate on the hidden test set.</p>
+                </div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="faq-item">
+                <h3 class="faq-question">What is the submission limit?</h3>
+                <div class="faq-answer">
+                    <ul>
+                    <li>You may make up to <strong>5 submissions per day</strong></li>
+                    <li>A maximum of <strong>3 final code submissions</strong> can be made for internal evaluation</li>
+                    <li>Your <strong>highest SSC score</strong> from those 3 code submissions will be used for the final ranking</li>
+                    </ul>
+                </div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="faq-item">
+                <h3 class="faq-question">What are the hardware or runtime constraints?</h3>
+                <div class="faq-answer">
+                    <p>
+                    For the final evaluation, your model must be runnable on a <strong>single GPU (e.g., NVIDIA RTX 6000 Ada or similar)</strong> with <strong>&lt;24GB VRAM</strong> and <strong>&lt;30 minutes inference time per test sample</strong>. If your model exceeds this, you may be disqualified.
+                    </p>
+                </div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="faq-item">
+                <h3 class="faq-question">Where can I ask questions or get help?</h3>
+                <div class="faq-answer">
+                    <p>
+                    Please post your questions on the <strong>Kaggle discussion forum</strong>. The organizers will actively respond and clarify rules and requirements.
+                    </p>
+                </div>
+                </div>
+
+                <!-- Q13 -->
+                <div class="faq-item">
+                <h3 class="faq-question">What license applies to the data?</h3>
+                <div class="faq-answer">
+                    <p>
+                    The dataset is released under the <strong>MIT License</strong>, which permits <strong>free use, modification, and distribution</strong> for both research and commercial purposes, provided that the original authors are properly credited.
+                    </p>
+                </div>
+                </div>
+
+                <!-- Q14 -->
+                <div class="faq-item">
+                <h3 class="faq-question">What do the winners receive?</h3>
+                <div class="faq-answer">
+                    <ul>
+                    <li>Featured in a special session at <strong>ICASSP 2026</strong></li>
+                    <li>Invited to contribute to the joint <strong>overview paper</strong> with the organizers</li>
+                    <li>Provided with certificates and digital badges</li>
+                    </ul>
+                </div>
                 </div>
             </div><!-- /.faq-container -->
         </section>

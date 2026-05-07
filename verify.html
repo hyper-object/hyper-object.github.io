@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperObject @ ICASSP 2026 | Certificate Verification</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/elliptic@6.5.4/dist/elliptic.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f9; color: #333; display: flex; flex-direction: column; align-items: center; padding: 40px; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 600px; width: 100%; text-align: center; }
+        h1 { color: #002147; margin-bottom: 10px; }
+        p { color: #666; margin-bottom: 30px; }
+        #drop-zone { border: 2px dashed #C5A059; padding: 40px; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        #drop-zone:hover { background: #fffcf5; }
+        #result { margin-top: 30px; padding: 20px; border-radius: 8px; display: none; }
+        .success { background-color: #e6fffa; border: 1px solid #38b2ac; color: #234e52; }
+        .failure { background-color: #fff5f5; border: 1px solid #feb2b2; color: #742a2a; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h1>HyperObject ICASSP 2026</h1>
+    <p>Official Grand Challenge Certificate Verifier</p>
+
+    <div id="drop-zone">
+        <strong>Click or Drag Certificate PDF here</strong>
+        <input type="file" id="file-input" class="hidden" accept=".pdf">
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    // --- CONFIGURATION ---
+    // PASTE YOUR PUBLIC KEY HEX HERE
+    const PUBLIC_KEY_HEX = '7b6e61f94215b6257299be3301cbb3a5abb7a3c4a2326740559c7bf6ff4eeab171be3a5977aa77e5b00c95385a94960b4df49a1c399d74ec20c72d25237651f1'; 
+    
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const resultDiv = document.getElementById('result');
+    const ec = new elliptic.ec('secp256k1');
+
+    dropZone.onclick = () => fileInput.click();
+
+    fileInput.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        verifyCertificate(file);
+    };
+
+    async function verifyCertificate(file) {
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = "Processing...";
+        resultDiv.className = "";
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+            
+            // Extract metadata from the PDF
+            const subject = pdfDoc.getSubject();   // This contains the JSON data
+            const keywords = pdfDoc.getKeywords(); // This contains the hex signature
+
+            if (!subject || !keywords) {
+                throw new Error("No verification metadata found in this PDF.");
+            }
+
+            // Perform Cryptographic Verification
+            const key = ec.keyFromPublic(PUBLIC_KEY_HEX, 'hex');
+            
+            // We must verify the RAW string that was signed in Python
+            const isValid = key.verify(subject, keywords);
+
+            if (isValid) {
+                const data = JSON.parse(subject);
+                resultDiv.className = "success";
+                resultDiv.innerHTML = `
+                    <strong>✓ Verified Authentic</strong><br>
+                    Recipient Rank: ${data.rank}<br>
+                    Paper ID: ${data.id}<br>
+                    Organization: ${data.org}
+                `;
+            } else {
+                throw new Error("Signature mismatch. The document may have been altered.");
+            }
+
+        } catch (err) {
+            resultDiv.className = "failure";
+            resultDiv.innerHTML = `<strong>Verification Failed</strong><br>${err.message}`;
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HyperObject @ ICASSP 2026 | Certificate Verification</title>
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/elliptic@6.5.4/dist/elliptic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/elliptic/6.5.4/elliptic.min.js"></script>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f9; color: #333; display: flex; flex-direction: column; align-items: center; padding: 40px; }
         .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 600px; width: 100%; text-align: center; }
@@ -35,15 +35,35 @@
 
 <script>
     // --- CONFIGURATION ---
-    // PASTE YOUR PUBLIC KEY HEX HERE
-    const PUBLIC_KEY_HEX = '7b6e61f94215b6257299be3301cbb3a5abb7a3c4a2326740559c7bf6ff4eeab171be3a5977aa77e5b00c95385a94960b4df49a1c399d74ec20c72d25237651f1'; 
+    const PUBLIC_KEY_HEX = '047b6e61f94215b6257299be3301cbb3a5abb7a3c4a2326740559c7bf6ff4eeab171be3a5977aa77e5b00c95385a94960b4df49a1c399d74ec20c72d25237651f1';
     
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
     const resultDiv = document.getElementById('result');
     const ec = new elliptic.ec('secp256k1');
 
-    dropZone.onclick = () => fileInput.click();
+    dropZone.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    // ADDED: Support for actual Drag and Drop
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.background = "#fffcf5";
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.background = "transparent";
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.background = "transparent";
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            verifyCertificate(files[0]);
+        }
+    });
 
     fileInput.onchange = async (e) => {
         const file = e.target.files[0];
@@ -71,8 +91,28 @@
             // Perform Cryptographic Verification
             const key = ec.keyFromPublic(PUBLIC_KEY_HEX, 'hex');
             
-            // We must verify the RAW string that was signed in Python
-            const isValid = key.verify(subject, keywords);
+            if (keywords.length !== 128) {
+            throw new Error(
+                `Invalid signature length. Expected 128 hex characters, got ${keywords.length}.`
+            );
+            }
+
+            const signature = {
+                r: keywords.slice(0, 64),
+                s: keywords.slice(64, 128)
+            };
+
+            const hashBuffer = await crypto.subtle.digest(
+                "SHA-256",
+                new TextEncoder().encode(subject)
+            );
+
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray
+                .map(b => b.toString(16).padStart(2, "0"))
+                .join("");
+
+            const isValid = key.verify(hashHex, signature);
 
             if (isValid) {
                 const data = JSON.parse(subject);
